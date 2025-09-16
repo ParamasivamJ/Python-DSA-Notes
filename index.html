@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive DSA Notes in Python</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @media print {
+            body { 
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact;
+            }
+            .no-print { 
+                display: none; 
+            }
+            .page-break { 
+                page-break-before: always; 
+            }
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
+        }
+        h1, h2, h3, h4 {
+            font-weight: 700;
+        }
+        h2 {
+            margin-top: 2.5rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        h3 {
+            margin-top: 2rem;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 0.25rem;
+        }
+        pre {
+            background-color: #1f2937; /* Darker background for code */
+            color: #d1d5db; /* Light gray text for contrast */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f9fafb;
+        }
+        .toc a {
+            text-decoration: none;
+            color: #3b82f6;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        .note {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.25rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto max-w-5xl p-4 md:p-8 bg-white shadow-lg rounded-lg my-8">
+
+        <!-- Header and Print Button -->
+        <div class="flex justify-between items-center mb-8 border-b pb-4">
+            <h1 class="text-4xl font-bold text-gray-900">DSA Notes in Python</h1>
+            <button onclick="window.print()" class="no-print bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow transition-transform transform hover:scale-105">
+                Save as PDF
+            </button>
+        </div>
+        <p class="text-gray-600 mb-8">A complete guide for students, interviewees, and enthusiasts. This document covers major Data Structures and Algorithms with explanations, Python implementations, and complexity analysis.</p>
+
+        <!-- Table of Contents -->
+        <div id="toc" class="p-6 bg-gray-50 rounded-xl mb-12">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-800" id="toc-header">Table of Contents</h2>
+            <ul class="list-disc list-inside space-y-2 toc">
+                <li><a href="#intro">Introduction to DSA & Big O</a></li>
+                <li><a href="#arrays">Arrays</a></li>
+                <li><a href="#strings">Strings</a></li>
+                <li><a href="#linked-lists">Linked Lists</a></li>
+                <li><a href="#stacks">Stacks</a></li>
+                <li><a href="#queues">Queues</a></li>
+                <li><a href="#hashing">Hashing</a></li>
+                <li><a href="#trees">Trees</a></li>
+                <li><a href="#graphs">Graphs</a></li>
+                <li><a href="#searching-algos">Searching Algorithms</a></li>
+                <li><a href="#sorting-algos">Sorting Algorithms</a></li>
+                <li><a href="#algo-paradigms">Algorithm Paradigms</a></li>
+            </ul>
+        </div>
+
+        <!-- Content Sections -->
+        <div id="content">
+            <!-- Introduction to DSA & Big O -->
+            <section id="intro" class="mb-12">
+                <h2 class="text-3xl font-bold">Introduction to DSA & Big O</h2>
+                <p class="mt-4"><strong>Data Structures</strong> are formats for organizing, managing, processing, and storing data. <strong>Algorithms</strong> are step-by-step procedures for solving problems or accomplishing tasks.</p>
+                <h3 class="text-2xl mt-6">Complexity Analysis (Big O Notation)</h3>
+                <p>Big O notation is used to describe the performance or complexity of an algorithm. It specifically describes the worst-case scenario and can be used to describe the execution time required or the space used (e.g., in memory or on disk) by an algorithm.</p>
+                <div class="grid md:grid-cols-2 gap-4 mt-4">
+                    <div class="p-4 bg-green-50 rounded-lg"><strong>O(1) - Constant:</strong> The algorithm takes the same amount of time regardless of the input size. Ex: Accessing an array element by index.</div>
+                    <div class="p-4 bg-yellow-50 rounded-lg"><strong>O(log n) - Logarithmic:</strong> Time increases logarithmically with input size. Common in algorithms that divide the problem in half, like Binary Search.</div>
+                    <div class="p-4 bg-blue-50 rounded-lg"><strong>O(n) - Linear:</strong> Time is directly proportional to the input size. Ex: Iterating through a list.</div>
+                    <div class="p-4 bg-purple-50 rounded-lg"><strong>O(n log n) - Log-Linear:</strong> Common in efficient sorting algorithms like Merge Sort and Quick Sort.</div>
+                    <div class="p-4 bg-orange-50 rounded-lg"><strong>O(n<sup>2</sup>) - Quadratic:</strong> Time is proportional to the square of the input size. Ex: Nested loops, Bubble Sort.</div>
+                    <div class="p-4 bg-red-50 rounded-lg"><strong>O(2<sup>n</sup>) - Exponential:</strong> Time doubles with each addition to the input data set. Often seen in recursive solutions like finding all subsets.</div>
+                </div>
+            </section>
+
+            <div class="page-break"></div>
+
+            <!-- Arrays -->
+            <section id="arrays" class="mb-12">
+                <h2 class="text-3xl font-bold">Arrays</h2>
+                <p class="mt-4">An array is a collection of items stored at contiguous memory locations. In Python, the `list` type serves as a dynamic array.</p>
+                <h3 class="text-2xl mt-6">Key Characteristics</h3>
+                <ul class="list-disc list-inside mt-2 space-y-1">
+                    <li><strong>Indexed:</strong> Elements are accessed via an index, starting from 0.</li>
+                    <li><strong>Contiguous Memory:</strong> Elements are stored next to each other in memory, which allows for fast O(1) access.</li>
+                    <li><strong>Dynamic (in Python):</strong> Python's lists can grow or shrink in size.</li>
+                </ul>
+                <h3 class="text-2xl mt-6">Complexity Analysis</h3>
+                <table>
+                    <thead>
+                        <tr><th>Operation</th><th>Time Complexity</th><th>Space Complexity</th><th>Notes</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Access (by index)</td><td>O(1)</td><td>O(1)</td><td>e.g., `my_list[i]`</td></tr>
+                        <tr><td>Search (by value)</td><td>O(n)</td><td>O(1)</td><td>Must potentially check every element.</td></tr>
+                        <tr><td>Append (add to end)</td><td>O(1) (Amortized)</td><td>O(1)</td><td>Occasionally requires resizing (O(n)), but on average it's constant.</td></tr>
+                        <tr><td>Insert (at arbitrary index)</td><td>O(n)</td><td>O(1)</td><td>Requires shifting all subsequent elements.</td></tr>
+                        <tr><td>Delete (at arbitrary index)</td><td>O(n)</td><td>O(1)</td><td>Requires shifting all subsequent elements.</td></tr>
+                    </tbody>
+                </table>
+                 <h3 class="text-2xl mt-6">Python Code Example</h3>
+<pre><code class="language-python">
+# Python's list is a dynamic array
+arr = [10, 20, 30, 40, 50]
+
+# Access (O(1))
+print(f"Element at index 2: {arr[2]}") # Output: 30
+
+# Append (Amortized O(1))
+arr.append(60)
+print(f"After append: {arr}") # Output: [10, 20, 30, 40, 50, 60]
+
+# Insert (O(n))
+arr.insert(1, 15) # Insert 15 at index 1
+print(f"After insert: {arr}") # Output: [10, 15, 20, 30, 40, 50, 60]
+
+# Delete (O(n))
+arr.pop(3) # Deletes element at index 3
+print(f"After pop: {arr}") # Output: [10, 15, 20, 40, 50, 60]
+
+# Search (O(n))
+try:
+    index = arr.index(40)
+    print(f"Index of 40: {index}") # Output: 3
+except ValueError:
+    print("Element not found")
+</code></pre>
+            </section>
+            
+            <div class="page-break"></div>
+
+            <!-- Strings -->
+            <section id="strings" class="mb-12">
+                <h2 class="text-3xl font-bold">Strings</h2>
+                <p class="mt-4">A string is a sequence of characters. In Python, strings are immutable, meaning they cannot be changed after they are created. Any operation that appears to modify a string actually creates a new one.</p>
+                <h3 class="text-2xl mt-6">Key Characteristics</h3>
+                <ul class="list-disc list-inside mt-2 space-y-1">
+                    <li><strong>Immutable:</strong> Cannot be changed in place. `my_string[0] = 'a'` will raise a `TypeError`.</li>
+                    <li><strong>Ordered:</strong> Characters have a defined sequence.</li>
+                    <li><strong>Iterable:</strong> You can loop through the characters.</li>
+                </ul>
+                <h3 class="text-2xl mt-6">Complexity Analysis</h3>
+                <table>
+                    <thead>
+                        <tr><th>Operation</th><th>Time Complexity</th><th>Space Complexity</th><th>Notes</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Access (by index)</td><td>O(1)</td><td>O(1)</td><td>e.g., `my_string[i]`</td></tr>
+                        <tr><td>Slicing</td><td>O(k)</td><td>O(k)</td><td>`k` is the length of the slice. A new string is created.</td></tr>
+                        <tr><td>Concatenation</td><td>O(n + m)</td><td>O(n + m)</td><td>`n` and `m` are lengths of strings. A new string is created.</td></tr>
+                        <tr><td>Search (substring)</td><td>O(n * m)</td><td>O(1)</td><td>Can be faster with algorithms like KMP. `in` operator in Python is highly optimized.</td></tr>
+                    </tbody>
+                </table>
+                <h3 class="text-2xl mt-6">Python Code Example</h3>
+<pre><code class="language-python">
+s = "hello"
+
+# Immutability
+# s[0] = 'H'  # This will cause a TypeError
+
+# Slicing (O(k))
+new_s = s[1:4] # "ell"
+print(f"Slice: {new_s}")
+
+# Concatenation (O(n+m))
+s2 = s + " world"
+print(f"Concatenated: {s2}")
+
+# Search (Optimized in Python)
+if "ell" in s:
+    print("Substring 'ell' found")
+
+# String methods create new strings
+s_upper = s.upper()
+print(f"Original: {s}, Uppercase: {s_upper}")
+</code></pre>
+            </section>
+
+            <div class="page-break"></div>
+            
+            <!-- Linked Lists -->
+            <section id="linked-lists" class="mb-12">
+                <h2 class="text-3xl font-bold">Linked Lists</h2>
+                <p class="mt-4">A linked list is a linear data structure where elements are not stored at contiguous memory locations. The elements (nodes) are linked using pointers.</p>
+                <div class="note">
+                    <strong>Diagram:</strong> A -> B -> C -> NULL <br>
+                    Each box (A, B, C) is a node containing `data` and a `next` pointer.
+                </div>
+                
+                <h3 class="text-2xl mt-6">Types of Linked Lists</h3>
+                <ul class="list-disc list-inside mt-2 space-y-1">
+                    <li><strong>Singly Linked List (SLL):</strong> Each node points only to the next node. Traversal is unidirectional.</li>
+                    <li><strong>Doubly Linked List (DLL):</strong> Each node points to both the next and the previous node. Traversal can be bidirectional.</li>
+                    <li><strong>Circular Linked List (CLL):</strong> The last node's `next` pointer points back to the first node, forming a circle.</li>
+                </ul>
+
+                <h3 class="text-2xl mt-6">Singly Linked List Implementation</h3>
+<pre><code class="language-python">
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+        last_node = self.head
+        while last_node.next:
+            last_node = last_node.next
+        last_node.next = new_node
+
+    def prepend(self, data):
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+
+    def delete(self, key):
+        curr = self.head
+        if curr and curr.data == key:
+            self.head = curr.next
+            curr = None
+            return
+        
+        prev = None
+        while curr and curr.data != key:
+            prev = curr
+            curr = curr.next
+
+        if curr is None:
+            return # Key not found
+
+        prev.next = curr.next
+        curr = None
+        
+    def display(self):
+        elements = []
+        curr = self.head
+        while curr:
+            elements.append(str(curr.data))
+            curr = curr.next
+        print(" -> ".join(elements))
+
+# Example usage
+sll = SinglyLinkedList()
+sll.append(1)
+sll.append(2)
+sll.append(3)
+sll.prepend(0)
+sll.display() # Output: 0 -> 1 -> 2 -> 3
+sll.delete(2)
+sll.display() # Output: 0 -> 1 -> 3
+</code></pre>
+
+                <h3 class="text-2xl mt-6">Comparison: Array vs. Linked List</h3>
+                <table>
+                    <thead>
+                        <tr><th>Feature</th><th>Array (Python List)</th><th>Linked List</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Access Time</strong></td><td>O(1)</td><td>O(n)</td></tr>
+                        <tr><td><strong>Insertion/Deletion (at start)</strong></td><td>O(n)</td><td>O(1)</td></tr>
+                        <tr><td><strong>Insertion/Deletion (at end)</strong></td><td>O(1) Amortized</td><td>O(n) (or O(1) if tail pointer is maintained)</td></tr>
+                        <tr><td><strong>Insertion/Deletion (in middle)</strong></td><td>O(n)</td><td>O(n) (search) + O(1) (link change)</td></tr>
+                        <tr><td><strong>Memory</strong></td><td>Contiguous block</td><td>Scattered, requires extra memory for pointers</td></tr>
+                    </tbody>
+                </table>
+            </section>
+            
+            <div class="page-break"></div>
+
+            <!-- Stacks -->
+            <section id="stacks" class="mb-12">
+                <h2 class="text-3xl font-bold">Stacks</h2>
+                <p class="mt-4">A stack is a linear data structure that follows the <strong>LIFO (Last-In, First-Out)</strong> principle. The last element added to the stack will be the first one to be removed.</p>
+                <div class="note"><strong>Analogy:</strong> A stack of plates. You add a plate to the top and remove a plate from the top.</div>
+
+                <h3 class="text-2xl mt-6">Core Operations</h3>
+                 <ul class="list-disc list-inside mt-2 space-y-1">
+                    <li><strong>Push:</strong> Add an element to the top of the stack.</li>
+                    <li><strong>Pop:</strong> Remove the top element from the stack.</li>
+                    <li><strong>Peek/Top:</strong> View the top element without removing it.</li>
+                    <li><strong>isEmpty:</strong> Check if the stack is empty.</li>
+                </ul>
+
+                <h3 class="text-2xl mt-6">Implementation using Python List</h3>
+<pre><code class="language-python">
+class Stack:
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        if not self.is_empty():
+            return self.items.pop()
+        return "Stack is empty"
+
+    def peek(self):
+        if not self.is_empty():
+            return self.items[-1]
+        return "Stack is empty"
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def size(self):
+        return len(self.items)
+
+# Example usage
+stack = Stack()
+stack.push(10)
+stack.push(20)
+stack.push(30)
+print(f"Top element: {stack.peek()}") # Output: 30
+print(f"Popped element: {stack.pop()}") # Output: 30
+print(f"Is empty? {stack.is_empty()}") # Output: False
+</code></pre>
+                <div class="note">In Python, you can simply use a `list` as a stack (`append()` for push, `pop()` for pop). For better performance with a large number of push/pop operations, `collections.deque` is recommended.</div>
+                <h3 class="text-2xl mt-6">Complexity Analysis</h3>
+                <table>
+                    <thead><tr><th>Operation</th><th>Time Complexity</th><th>Space Complexity</th></tr></thead>
+                    <tbody>
+                        <tr><td>Push</td><td>O(1)</td><td>O(1)</td></tr>
+                        <tr><td>Pop</td><td>O(1)</td><td>O(1)</td></tr>
+                        <tr><td>Peek</td><td>O(1)</td><td>O(1)</td></tr>
+                        <tr><td>Search</td><td>O(n)</td><td>O(1)</td></tr>
+                    </tbody>
+                </table>
+            </section>
+            
+            <div class="page-break"></div>
+
+            <!-- Queues -->
+            <section id="queues" class="mb-12">
+                <h2 class="text-3xl font-bold">Queues</h2>
+                <p class="mt-4">A queue is a linear data structure that follows the <strong>FIFO (First-In, First-Out)</strong> principle. The first element added will be the first one to be removed.</p>
+                <div class="note"><strong>Analogy:</strong> A checkout line at a store. The first person in line is the first person to be served.</div>
+                
+                <h3 class="text-2xl mt-6">Implementation with `collections.deque`</h3>
+                <p>Using a Python `list` for a queue is inefficient for removals from the front (O(n)). The `collections.deque` (double-ended queue) is optimized for appends and pops from both ends (O(1)).</p>
+<pre><code class="language-python">
+from collections import deque
+
+queue = deque()
+
+# Enqueue (add to the right)
+queue.append(10)
+queue.append(20)
+queue.append(30)
+print(f"Queue: {queue}")
+
+# Dequeue (remove from the left)
+item = queue.popleft()
+print(f"Dequeued item: {item}") # Output: 10
+print(f"Queue after dequeue: {queue}")
+
+# Peek
+print(f"Front of queue: {queue[0]}") # Output: 20
+</code></pre>
+
+                <h3 class="text-2xl mt-6">Variations of Queues</h3>
+                <ul class="list-disc list-inside mt-2 space-y-2">
+                    <li><strong>Circular Queue:</strong> A fixed-size queue where the last position is connected back to the first, making it a circle. It efficiently uses a block of memory.</li>
+                    <li><strong>Deque (Double-Ended Queue):</strong> Elements can be added or removed from either the front or the rear. `collections.deque` is Python's implementation.</li>
+                    <li><strong>Priority Queue:</strong> Each element has a priority associated with it. An element with high priority is dequeued before an element with low priority. In Python, this is implemented using the `heapq` module (which uses a min-heap).</li>
+                </ul>
+
+                <h3 class="text-2xl mt-6">Priority Queue (`heapq`) Example</h3>
+<pre><code class="language-python">
+import heapq
+
+# A min-priority queue
+pq = []
+
+# heapq treats the list 'pq' as a min-heap
+heapq.heappush(pq, (2, 'Task B')) # (priority, item)
+heapq.heappush(pq, (1, 'Task A'))
+heapq.heappush(pq, (3, 'Task C'))
+
+print(f"Priority queue: {pq}")
+
+# Pop the item with the smallest priority
+highest_priority_task = heapq.heappop(pq)
+print(f"Processing: {highest_priority_task}") # Output: (1, 'Task A')
+</code></pre>
+            </section>
+
+            <div class="page-break"></div>
+
+            <!-- Hashing -->
+            <section id="hashing" class="mb-12">
+                <h2 class="text-3xl font-bold">Hashing</h2>
+                <p class="mt-4">Hashing is a technique used to map keys of any size to data of a fixed size. A hash function is used to generate this mapping. Hash tables (or hash maps) are data structures that implement an associative array abstract data type, which can map keys to values.</p>
+                
+                <h3 class="text-2xl mt-6">Key Concepts</h3>
+                <ul class="list-disc list-inside mt-2 space-y-1">
+                    <li><strong>Hash Function:</strong> A function that takes a key and computes an index (a hash code) into an array of buckets or slots. A good hash function distributes keys uniformly.</li>
+                    <li><strong>Hash Table:</strong> An array where data is stored according to its computed hash code.</li>
+                    <li><strong>Collision:</strong> Occurs when two different keys hash to the same index.</li>
+                </ul>
+                
+                <h3 class="text-2xl mt-6">Collision Resolution Techniques</h3>
+                <ol class="list-decimal list-inside mt-2 space-y-2">
+                    <li>
+                        <strong>Separate Chaining:</strong> Each bucket in the hash table points to a linked list of records that have the same hash code. This is the most common method.
+                        <div class="note"><strong>Diagram:</strong><br>Index 0: -> NULL<br>Index 1: -> KeyA -> KeyC -> NULL<br>Index 2: -> KeyB -> NULL</div>
+                    </li>
+                    <li>
+                        <strong>Open Addressing (Probing):</strong> All elements are stored in the hash table itself. When a collision occurs, we probe for the next empty slot.
+                        <ul class="list-disc list-inside ml-6">
+                            <li><strong>Linear Probing:</strong> Check the next slot `(hash(key) + i) % size`. Suffers from primary clustering.</li>
+                            <li><strong>Quadratic Probing:</strong> Check slots `(hash(key) + i^2) % size`.</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h3 class="text-2xl mt-6">Python's `dict` and `set`</h3>
+                <p>Python's built-in `dict` (dictionary) and `set` are implemented using hash tables. They are highly optimized for performance.</p>
+                <h3 class="text-2xl mt-6">Complexity Analysis (Average Case)</h3>
+                <table>
+                    <thead><tr><th>Operation</th><th>Time Complexity</th><th>Space Complexity</th></tr></thead>
+                    <tbody>
+                        <tr><td>Insert</td><td>O(1)</td><td>O(1)</td></tr>
+                        <tr><td>Delete</td><td>O(1)</td><td>O(1)</td></tr>
+                        <tr><td>Search/Lookup</td><td>O(1)</td><td>O(1)</td></tr>
+                    </tbody>
+                </table>
+                <p class="mt-2 text-sm text-gray-600">*Worst-case complexity is O(n) if all keys hash to the same bucket, but this is extremely rare with good hash functions.</p>
+<pre><code class="language-python">
+# Dictionary (Hash Map)
+my_dict = {'name': 'Alice', 'age': 30}
+my_dict['city'] = 'New York' # Insert/Update - O(1)
+print(f"Age: {my_dict['age']}") # Lookup - O(1)
+del my_dict['age'] # Delete - O(1)
+print(f"Dictionary: {my_dict}")
+
+# Set
+my_set = {1, 2, 3, 4}
+my_set.add(5) # Insert - O(1)
+my_set.remove(2) # Delete - O(1)
+print(f"Is 3 in set? {3 in my_set}") # Lookup - O(1)
+print(f"Set: {my_set}")
+</code></pre>
+            </section>
+            
+            <div class="page-break"></div>
+
+            <!-- Trees -->
+            <section id="trees" class="mb-12">
+                <h2 class="text-3xl font-bold">Trees</h2>
+                <p class="mt-4">A tree is a non-linear hierarchical data structure that consists of nodes connected by edges. Each tree has a root node, and all other nodes are descendants of the root.</p>
+                <h3 class="text-2xl mt-6">Tree Traversal Algorithms</h3>
+                <ul class="list-disc list-inside mt-2">
+                    <li><strong>In-order (Left, Root, Right):</strong> Visits nodes in ascending order for a BST.</li>
+                    <li><strong>Pre-order (Root, Left, Right):</strong> Useful for creating a copy of the tree.</li>
+                    <li><strong>Post-order (Left, Right, Root):</strong> Useful for deleting nodes.</li>
+                    <li><strong>Level-order (Breadth-First Search):</strong> Visits nodes level by level.</li>
+                </ul>
+
+                <h3 class="text-2xl mt-6">Binary Search Tree (BST)</h3>
+                <p>A binary tree where for each node, all values in its left subtree are less than its own value, and all values in its right subtree are greater.</p>
+<pre><code class="language-python">
+class TreeNode:
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.val = key
+
+def insert(root, key):
+    if root is None:
+        return TreeNode(key)
+    else:
+        if root.val < key:
+            root.right = insert(root.right, key)
+        else:
+            root.left = insert(root.left, key)
+    return root
+
+def inorder_traversal(root):
+    if root:
+        inorder_traversal(root.left)
+        print(root.val, end=' ')
+        inorder_traversal(root.right)
+
+# Example
+root = TreeNode(50)
+root = insert(root, 30)
+root = insert(root, 20)
+root = insert(root, 40)
+root = insert(root, 70)
+root = insert(root, 60)
+root = insert(root, 80)
+
+print("In-order traversal of the BST:")
+inorder_traversal(root) # Output: 20 30 40 50 60 70 80 
+</code></pre>
+                <h3 class="text-2xl mt-6">Balanced vs. Unbalanced Trees</h3>
+                <p>A standard BST can become unbalanced (like a linked list) in the worst case, leading to O(n) for search/insert/delete operations. Self-balancing trees like AVL trees and Red-Black trees perform rotations to maintain a balanced height, ensuring O(log n) performance.</p>
+                
+                <h3 class="text-2xl mt-6">Heap</h3>
+                <p>A heap is a specialized tree-based data structure that satisfies the heap property. In a <strong>Min-Heap</strong>, the parent node is always smaller than its children. In a <strong>Max-Heap</strong>, the parent is always larger.</p>
+                <p>Heaps are commonly used to implement Priority Queues. Python's `heapq` module provides a min-heap implementation.</p>
+                
+                <h3 class="text-2xl mt-6">Trie (Prefix Tree)</h3>
+                <p>A Trie is a tree-like data structure that is efficient for retrieving keys in a dictionary-like dataset. It's commonly used for autocomplete features and spell checkers. Each node represents a character, and paths from the root to a node represent prefixes.</p>
+            </section>
+            
+            <div class="page-break"></div>
+
+            <!-- Graphs -->
+            <section id="graphs" class="mb-12">
+                <h2 class="text-3xl font-bold">Graphs</h2>
+                <p class="mt-4">A graph is a non-linear data structure consisting of a set of vertices (nodes) and a set of edges connecting these vertices.</p>
+                <h3 class="text-2xl mt-6">Graph Representations</h3>
+                <ol class="list-decimal list-inside mt-2 space-y-2">
+                    <li><strong>Adjacency Matrix:</strong> A 2D array where `matrix[i][j] = 1` if there is an edge from vertex `i` to `j`. Space complexity is O(V<sup>2</sup>). Good for dense graphs.</li>
+                    <li><strong>Adjacency List:</strong> An array of lists. `adj[i]` contains a list of all vertices adjacent to vertex `i`. Space complexity is O(V + E). Good for sparse graphs.</li>
+                </ol>
+<pre><code class="language-python">
+# Adjacency List Representation in Python using a dictionary
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+</code></pre>
+                <h3 class="text-2xl mt-6">Graph Traversal Algorithms</h3>
+                <ul class="list-disc list-inside mt-2 space-y-2">
+                    <li><strong>Breadth-First Search (BFS):</strong> Explores neighbor nodes first, level by level. Uses a queue. Useful for finding the shortest path in an unweighted graph.</li>
+                    <li><strong>Depth-First Search (DFS):</strong> Explores as far as possible along each branch before backtracking. Uses a stack (or recursion). Useful for topological sorting and detecting cycles.</li>
+                </ul>
+<pre><code class="language-python">
+# BFS Implementation
+from collections import deque
+
+def bfs(graph, start_node):
+    visited = set()
+    queue = deque([start_node])
+    visited.add(start_node)
+    
+    while queue:
+        vertex = queue.popleft()
+        print(vertex, end=" ")
+        
+        for neighbor in graph.get(vertex, []):
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+
+print("BFS traversal:")
+bfs(graph, 'A') # Example: A B C D E F
+print("\n")
+
+# DFS Implementation (Recursive)
+def dfs(graph, start_node, visited=None):
+    if visited is None:
+        visited = set()
+    
+    visited.add(start_node)
+    print(start_node, end=" ")
+    
+    for neighbor in graph.get(start_node, []):
+        if neighbor not in visited:
+            dfs(graph, neighbor, visited)
+
+print("DFS traversal:")
+dfs(graph, 'A') # Example: A B D E F C
+</code></pre>
+                <h3 class="text-2xl mt-6">Important Graph Algorithms</h3>
+                <ul class="list-disc list-inside mt-2 space-y-1">
+                    <li><strong>Dijkstra's Algorithm:</strong> Finds the shortest path from a source node to all other nodes in a weighted graph (with non-negative weights).</li>
+                    <li><strong>Bellman-Ford Algorithm:</strong> Finds the shortest path, and can handle negative edge weights.</li>
+                    <li><strong>Floyd-Warshall Algorithm:</strong> Finds the shortest paths between all pairs of nodes.</li>
+                    <li><strong>Prim's & Kruskal's Algorithms:</strong> Finds the Minimum Spanning Tree (MST) of a graph.</li>
+                    <li><strong>Topological Sort:</strong> Linear ordering of vertices in a Directed Acyclic Graph (DAG) such that for every directed edge from vertex `u` to `v`, `u` comes before `v` in the ordering.</li>
+                </ul>
+            </section>
+            
+            <div class="page-break"></div>
+
+            <!-- Searching -->
+            <section id="searching-algos" class="mb-12">
+                <h2 class="text-3xl font-bold">Searching Algorithms</h2>
+                <h3 class="text-2xl mt-6">Linear Search</h3>
+                <p>Iterates through a collection one element at a time. It can be used on any iterable, sorted or unsorted.</p>
+                <p><strong>Time Complexity:</strong> O(n) | <strong>Space Complexity:</strong> O(1)</p>
+                
+                <h3 class="text-2xl mt-6">Binary Search</h3>
+                <p>A highly efficient search algorithm that works on <strong>sorted</strong> collections. It repeatedly divides the search interval in half.</p>
+                <p><strong>Time Complexity:</strong> O(log n) | <strong>Space Complexity:</strong> O(1) (iterative), O(log n) (recursive)</p>
+<pre><code class="language-python">
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+            
+    return -1 # Not found
+
+sorted_arr = [10, 20, 30, 40, 50, 60]
+index = binary_search(sorted_arr, 40)
+print(f"Index of 40 is: {index}") # Output: 3
+</code></pre>
+            </section>
+            
+            <div class="page-break"></div>
+
+            <!-- Sorting -->
+            <section id="sorting-algos" class="mb-12">
+                <h2 class="text-3xl font-bold">Sorting Algorithms</h2>
+                <p class="mt-4">Sorting arranges items in a collection into a specific order.</p>
+
+                <h3 class="text-2xl mt-6">Comparison of Sorting Algorithms</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Algorithm</th>
+                            <th>Time Complexity (Best)</th>
+                            <th>Time Complexity (Avg)</th>
+                            <th>Time Complexity (Worst)</th>
+                            <th>Space Complexity</th>
+                            <th>Stable?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Bubble Sort</strong></td>
+                            <td>O(n)</td>
+                            <td>O(n<sup>2</sup>)</td>
+                            <td>O(n<sup>2</sup>)</td>
+                            <td>O(1)</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Selection Sort</strong></td>
+                            <td>O(n<sup>2</sup>)</td>
+                            <td>O(n<sup>2</sup>)</td>
+                            <td>O(n<sup>2</sup>)</td>
+                            <td>O(1)</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Insertion Sort</strong></td>
+                            <td>O(n)</td>
+                            <td>O(n<sup>2</sup>)</td>
+                            <td>O(n<sup>2</sup>)</td>
+                            <td>O(1)</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Merge Sort</strong></td>
+                            <td>O(n log n)</td>
+                            <td>O(n log n)</td>
+                            <td>O(n log n)</td>
+                            <td>O(n)</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Quick Sort</strong></td>
+                            <td>O(n log n)</td>
+                            <td>O(n log n)</td>
+                            <td>O(n<sup>2</sup>)</td>
+                            <td>O(log n)</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Heap Sort</strong></td>
+                            <td>O(n log n)</td>
+                            <td>O(n log n)</td>
+                            <td>O(n log n)</td>
+                            <td>O(1)</td>
+                            <td>No</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="text-2xl mt-6">Merge Sort Implementation</h3>
+<pre><code class="language-python">
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        left_half = arr[:mid]
+        right_half = arr[mid:]
+
+        merge_sort(left_half)
+        merge_sort(right_half)
+
+        i = j = k = 0
+        # Merge the two halves
+        while i < len(left_half) and j < len(right_half):
+            if left_half[i] < right_half[j]:
+                arr[k] = left_half[i]
+                i += 1
+            else:
+                arr[k] = right_half[j]
+                j += 1
+            k += 1
+
+        while i < len(left_half):
+            arr[k] = left_half[i]
+            i += 1
+            k += 1
+
+        while j < len(right_half):
+            arr[k] = right_half[j]
+            j += 1
+            k += 1
+
+my_list = [54, 26, 93, 17, 77, 31, 44, 55, 20]
+merge_sort(my_list)
+print(f"Sorted list: {my_list}")
+</code></pre>
+            </section>
+
+            <div class="page-break"></div>
+
+            <!-- Algorithm Paradigms -->
+            <section id="algo-paradigms" class="mb-12">
+                <h2 class="text-3xl font-bold">Algorithm Paradigms</h2>
+                <h3 class="text-2xl mt-6">Divide and Conquer</h3>
+                <p>This paradigm involves three steps:
+                <ol class="list-decimal list-inside mt-2">
+                    <li><strong>Divide:</strong> Break the problem into smaller subproblems.</li>
+                    <li><strong>Conquer:</strong> Solve the subproblems recursively.</li>
+                    <li><strong>Combine:</strong> Combine the solutions to solve the original problem.</li>
+                </ol>
+                Examples: Merge Sort, Quick Sort, Binary Search.
+                </p>
+
+                <h3 class="text-2xl mt-6">Greedy Algorithms</h3>
+                <p>Makes the locally optimal choice at each step with the hope of finding a global optimum. It doesn't always find the best solution but is fast.
+                <br>Example: Finding minimum number of coins for a given change amount (for standard coin denominations).
+                </p>
+
+                <h3 class="text-2xl mt-6">Dynamic Programming (DP)</h3>
+                <p>Solves complex problems by breaking them down into simpler subproblems, solving each subproblem only once, and storing their solutions. It is used for problems with overlapping subproblems and optimal substructure.</p>
+                <ul class="list-disc list-inside mt-2">
+                    <li><strong>Memoization (Top-Down):</strong> Recursive approach where you store the results of expensive function calls and return the cached result when the same inputs occur again.</li>
+                    <li><strong>Tabulation (Bottom-Up):</strong> Iterative approach where you solve subproblems starting from the smallest ones and build up to the desired solution.</li>
+                </ul>
+<pre><code class="language-python">
+# Fibonacci with Memoization
+memo = {}
+def fib_memo(n):
+    if n in memo:
+        return memo[n]
+    if n <= 1:
+        return n
+    result = fib_memo(n - 1) + fib_memo(n - 2)
+    memo[n] = result
+    return result
+
+print(f"Fibonacci (memoization): {fib_memo(10)}")
+</code></pre>
+
+                <h3 class="text-2xl mt-6">Backtracking</h3>
+                <p>A general algorithmic technique for finding all (or some) solutions to computational problems, notably constraint satisfaction problems. It incrementally builds candidates to the solutions, and abandons a candidate ("backtracks") as soon as it determines that the candidate cannot possibly be completed to a valid solution.
+                <br>Example: N-Queens problem, solving Sudoku.
+                </p>
+            </section>
+        </div>
+
+    </div>
+    
+    <script>
+        // Simple script to make TOC links smooth scroll
+        document.querySelectorAll('#toc a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                // Don't prevent default for the main TOC header link
+                if(this.getAttribute('href') === '#toc-header') return;
+                
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
