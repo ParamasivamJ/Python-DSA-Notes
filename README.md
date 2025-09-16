@@ -41,7 +41,7 @@ The notes cover a wide range of essential DSA topics, including:
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/ParamasivamJ/Python-DSA-Notes.git](https://github.com/ParamasivamJ/Python-DSA-Notes.git)
+    git clone https://github.com/ParamasivamJ/Python-DSA-Notes.git
     ```
 2.  **Open the file:**
     Navigate to the cloned directory and open the `index.html` file in your preferred web browser.
